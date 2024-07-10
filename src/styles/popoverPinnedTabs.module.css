@@ -1,0 +1,17 @@
+.pinned-tab-wrapp {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+ padding: 20px;
+  background-color: #F1F5F8;
+}
+
+.delete-pinn {
+  color: #ffffff;
+  cursor: pointer;
+  text-align: center;
+  background-color: gray;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+}
