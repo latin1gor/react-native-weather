@@ -1,11 +1,11 @@
-import Button from '@mui/material/Button';
-import { useState, useEffect, useRef } from 'react';
-import { tabsData } from './mockData/tabsData';
-import sprite from './assets/sprite.svg';
-import TabList from './components/TabList';
-import PopoverPinnedTabs from './components/PopoverPinnedTabs';
-import PopoverHiddenTabs from './components/PopoverHiddenTabs';
-import { PINNED_TABS_KEY, TABS_STORAGE_KEY } from './helpers/storageKeys';
+import Button from "@mui/material/Button";
+import { useState, useEffect, useRef } from "react";
+import { tabsData } from "./mockData/tabsData";
+import sprite from "./assets/sprite.svg";
+import TabList from "./components/TabList";
+import PopoverPinnedTabs from "./components/PopoverPinnedTabs";
+import PopoverHiddenTabs from "./components/PopoverHiddenTabs";
+import { PINNED_TABS_KEY, TABS_STORAGE_KEY } from "./helpers/storageKeys";
 
 const getStoragedTabs = () => {
   const savedTabs = localStorage.getItem(TABS_STORAGE_KEY);
@@ -24,7 +24,9 @@ export default function App() {
   const [anchorEl, setAnchorEl] = useState(null);
   const [pinnedAncorEL, setPinnedAncorEL] = useState(null);
   const [tabsContainerWidth, setTabsContainerWidth] = useState(0);
-  const [tabIndex, setTabIndex] = useState(0);
+  const [tabIndex, setTabIndex] = useState(
+    localStorage.getItem("selectedPage") || String(1)
+  );
   const tabsContainerRef = useRef(null);
 
   useEffect(() => {
@@ -33,13 +35,13 @@ export default function App() {
 
   useEffect(() => {
     const containerResize = () => {
-      const width = document.getElementById('tabs').clientWidth;
+      const width = document.getElementById("tabs").clientWidth;
       setTabsContainerWidth(width);
     };
     containerResize();
-    window.addEventListener('resize', containerResize);
+    window.addEventListener("resize", containerResize);
     return () => {
-      window.removeEventListener('resize', containerResize);
+      window.removeEventListener("resize", containerResize);
     };
   }, [tabsContainerWidth]);
 
@@ -50,12 +52,12 @@ export default function App() {
     const tabsContainer = tabsContainerRef.current;
     const containerWidth = tabsContainerWidth;
 
-    const tabs = tabsContainer.querySelectorAll('.tab-item');
+    const tabs = tabsContainer.querySelectorAll(".tab-item");
 
     const hiddenTabsArray = [];
 
     tabs.forEach((tab) => {
-      const tabId = tab.getAttribute('data-tab-id'); // Getting tab id
+      const tabId = tab.getAttribute("data-tab-id"); // Getting tab id
       const tabObject = tabsList.find((t) => t.id === tabId); //Find specific tab in tabList array
       if (tab.offsetLeft - 150 + tab.offsetWidth > containerWidth) {
         hiddenTabsArray.push(tabObject);
@@ -111,10 +113,10 @@ export default function App() {
       <div className="container">
         <Button
           onClick={handleOpenPinnedTabs}
-          sx={{ position: 'absolute', top: '75px', left: '0', zIndex: '1' }}
+          sx={{ position: "absolute", top: "75px", left: "0", zIndex: "1" }}
         >
           <svg width="16" height="16">
-            <use xlinkHref={sprite + '#storage'}></use>
+            <use xlinkHref={sprite + "#storage"}></use>
           </svg>
         </Button>
         <PopoverPinnedTabs
@@ -137,14 +139,14 @@ export default function App() {
         <Button
           onClick={handleOpenMenu}
           sx={{
-            position: 'absolute',
-            top: '75px',
-            right: '0',
-            zIndex: '1',
+            position: "absolute",
+            top: "75px",
+            right: "0",
+            zIndex: "1",
           }}
         >
           <svg width="20" height="20">
-            <use xlinkHref={sprite + '#arrow-down'}></use>
+            <use xlinkHref={sprite + "#arrow-down"}></use>
           </svg>
         </Button>
         <PopoverHiddenTabs

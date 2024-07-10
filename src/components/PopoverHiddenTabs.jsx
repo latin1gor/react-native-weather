@@ -1,7 +1,7 @@
-import React from 'react';
-import Popover from '@mui/material/Popover';
-import CustomTabPanel from './CustomTabPanel';
-import { tabsData } from '../mockData/tabsData';
+import React from "react";
+import Popover from "@mui/material/Popover";
+import CustomTabPanel from "./CustomTabPanel";
+import { tabsData } from "../mockData/tabsData";
 
 export default function PopoverHiddenTabs({
   openUnvisiblePinns,
@@ -18,17 +18,20 @@ export default function PopoverHiddenTabs({
         anchorEl={anchorEl}
         onClose={handleCloseMenu}
         anchorOrigin={{
-          vertical: 'bottom',
-          horizontal: 'right',
+          vertical: "bottom",
+          horizontal: "right",
         }}
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
       >
         {hiddenTabs.map((tab) => (
           <div
-            onClick={() => setTabIndex(tab.id)}
+            onClick={() => {
+              setTabIndex(tab.id);
+              handleCloseMenu();
+            }}
             key={tab.id}
             value={tabIndex}
             index={tabIndex}

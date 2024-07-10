@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { Reorder } from 'framer-motion';
-import sprite from '../assets/sprite.svg';
+import React, { useState } from "react";
+import { Reorder } from "framer-motion";
+import sprite from "../assets/sprite.svg";
 
 export default function TabList({
   tabsList,
@@ -10,7 +10,9 @@ export default function TabList({
   pinnTabHandler,
   setTabsList,
 }) {
-  const [activeTabid, setActiveTabId] = useState(null);
+  const [activeTabid, setActiveTabId] = useState(
+    localStorage.getItem("selectedPage") || String(1)
+  );
 
   const handleReorder = (newTablist) => {
     setTabsList(newTablist);
@@ -19,6 +21,7 @@ export default function TabList({
   const handleTabClick = (id) => {
     setTabIndex(id);
     setActiveTabId(id);
+    localStorage.setItem("selectedPage", id);
   };
 
   return (
@@ -37,14 +40,14 @@ export default function TabList({
             onClick={() => handleTabClick(item.id)}
             data-tab-id={item.id}
             whileDrag={{
-              backgroundColor: '#7F858D',
-              color: '#ffffff',
+              backgroundColor: "#7F858D",
+              color: "#ffffff",
 
-              boxShadow: 'rgba(0,0,0,0.12) 0px 1px 3px ',
+              boxShadow: "rgba(0,0,0,0.12) 0px 1px 3px ",
             }}
             value={item}
             className={`tab-item ${
-              item.id === activeTabid ? 'active-tab-item' : ''
+              item.id === activeTabid ? "active-tab-item" : ""
             }`}
             key={item.id}
             id={item.id}
@@ -52,7 +55,7 @@ export default function TabList({
             <p>{item.label}</p>
             <span className="tooltip" onClick={() => pinnTabHandler(item)}>
               <svg width="16" height="16">
-                <use xlinkHref={sprite + '#pinn'}></use>
+                <use xlinkHref={sprite + "#pinn"}></use>
               </svg>
               Pinn tab
             </span>

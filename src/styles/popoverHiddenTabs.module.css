@@ -8,5 +8,12 @@
   border-radius: 6px;
   margin-bottom: 5px;
   padding: 20px;
-  background-color: #F1F5F8;
+  background-color: #f1f5f8;
+  cursor: pointer;
+  transition: background-color 100ms ease;
+}
+
+.hidden-tab:hover {
+  background-color: white;
+  transition: background-color 100ms ease;
 }
